@@ -1,0 +1,20 @@
+version: "3.5"
+
+networks:
+  flowrty:
+    external: true
+
+services:
+  {{ mfeContainerName }}:
+    image: node:lts-slim
+    container_name: {{ mfeContainerName }}
+    restart: unless-stopped
+    ports:
+      - "{{ port }}:{{ port }}"
+    volumes:
+      - ./:/app
+      - ./dev.sh:/dev.sh
+    command:
+      - ./dev.sh
+    networks:
+      - flowrty

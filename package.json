@@ -1,0 +1,43 @@
+{
+  "name": "flowrty-cli",
+  "version": "0.1.0",
+  "description": "Flowrty CLI",
+  "main": "index.js",
+  "bin": {
+    "flowrty-cli": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidedantonio/flowrty-cli.git"
+  },
+  "keywords": [
+    "flowrty-cli"
+  ],
+  "author": "Davide D'Antonio <davide.dantonio@webeetle.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidedantonio/flowrty-cli/issues"
+  },
+  "homepage": "https://github.com/davidedantonio/flowrty-cli#readme",
+  "devDependencies": {
+    "eslint": "^8.19.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-promise": "^6.0.0",
+    "pre-commit": "^1.2.2"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commist": "^2.0.0",
+    "figlet": "^1.5.2",
+    "handlebars": "^4.7.7",
+    "inquirer": "^8.2.4",
+    "js-yaml": "^4.1.0",
+    "make-promises-safe": "^5.1.0",
+    "recursive-copy": "^2.0.14"
+  }
+}

@@ -1,0 +1,87 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
+
+const dotenv = require('dotenv')
+const chalk = require('chalk')
+
+const path = require('path')
+const deps = require('./package.json').dependencies
+const env = dotenv.config().parsed
+
+if (env === undefined) {
+  console.log(chalk.red('NO .env FILE FOUND!'))
+  console.log(chalk.bgGreen('Please run \'npm run generate:env\' to generate it!'))
+  process.exit(1)
+}
+
+module.exports = {
+  entry: './src/index',
+  mode: 'development',
+  target: 'web',
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist')
+    },
+    port: env.PORT || {{ port }}
+  },
+  devtool: 'inline-source-map',
+  output: {
+    publicPath: 'auto'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        options: {
+          presets: ['@babel/preset-react']
+        }
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        include: path.resolve(__dirname, 'src'),
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new ESLintPlugin(),
+    new CleanWebpackPlugin(),
+    new ModuleFederationPlugin({
+      name: dotenv.APP_NAME || '{{ mfeName }}',
+      filename: 'remoteEntry.js',
+      remotes: {
+        // Add Here your remotes
+      },
+      exposes: {
+        // Add Here what you want to expose
+      },
+      shared: {
+        ...deps,
+        react: {
+          import: 'react',
+          shareKey: 'react',
+          shareScope: 'default',
+          singleton: true
+        },
+        'react-dom': {
+          singleton: true,
+          requiredVersion: deps['react-dom']
+        }
+      }
+    }),
+    new HtmlWebpackPlugin({
+      template: './public/index.ejs',
+      templateParameters: {
+        ...env
+      }
+    })
+  ]
+}

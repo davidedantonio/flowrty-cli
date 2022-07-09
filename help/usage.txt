@@ -1,0 +1,7 @@
+Generate Flowrty projects and utilities:
+
+  flowrty-cli [command]
+
+Command
+  generate:mfe         Generate a ready to use Flowrty React Project
+  generate:ms          Generate a ready to use Flowrty Fastify Project

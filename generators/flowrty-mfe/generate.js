@@ -4,6 +4,8 @@ const Handlebars = require('handlebars')
 const fs = require('fs/promises')
 const path = require('path')
 const copy = require('recursive-copy')
+const log = require('../../lib/log')
+const chalk = require('chalk')
 
 async function checkFileExists (filename) {
   try {
@@ -54,6 +56,11 @@ async function generateProject (args) {
   const dockerFileContent = await compileHandlebarTemplate(path.join(projDir, 'docker-compose.hbs'), args)
   await fs.rename(path.join(projDir, 'docker-compose.hbs'), path.join(projDir, 'docker-compose.yml'))
   await fs.writeFile(path.join(projDir, 'docker-compose.yml'), dockerFileContent)
+
+  log('success', `Project ${chalk.bold(args.name)} generated successfully with given information`)
+  log('success', `run 'cd ${chalk.bold(args.name)}'`)
+  log('success', `run '${chalk.bold('npm install')}'`)
+  log('success', `run '${chalk.bold('npm run dev')}' to start the application`)
 }
 
 module.exports = generateProject

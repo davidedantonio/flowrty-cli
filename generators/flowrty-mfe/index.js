@@ -60,7 +60,6 @@ async function cli () {
   try {
     const answers = await inquirer.prompt(questions)
     await generateProject(answers)
-    
   } catch (err) {
     log('error', err)
     process.exit(1)

@@ -20,15 +20,14 @@ function showHelp () {
     const file = fs.readFileSync(path.join(__dirname, 'help', 'usage.txt'), 'utf8')
     logger('info', file)
   } catch (e) {
-
+    logger('error', e)
   }
 }
 
 const res = commist
   .register('generate:mfe', mfeGenerator.cli)
   .parse(process.argv.splice(2))
-
-  console.log()
+console.log()
 
 if (res) {
   // No Command was regnized

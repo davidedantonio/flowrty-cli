@@ -1,6 +1,7 @@
 # flowrty-cli
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
+[![Tests](https://github.com/davidedantonio/flowrty-cli/actions/workflows/node.js.yml/badge.svg)](https://github.com/davidedantonio/flowrty-cli/actions/workflows/node.js.yml)
 
 Flowrti CLI is an utility that help you to generate your Flowrty project. This mean that you can easily:
 

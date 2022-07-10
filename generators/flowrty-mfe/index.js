@@ -41,7 +41,7 @@ async function cli () {
       type: 'input',
       name: 'mfeName',
       message: 'What is the MFE name?',
-      default: 'flowrty-core.mfe-app'
+      default: 'mfeApp'
     },
     {
       type: 'input',

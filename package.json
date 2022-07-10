@@ -7,8 +7,9 @@
     "flowrty-cli": "index.js"
   },
   "scripts": {
-    "lint": "standard --verbose",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx eslint -c .eslintrc.js ./test ./lib ./generators/**/*.js",
+    "unit": "tap test/*.test.js --no-coverage-report --jobs=1",
+    "test": "npm run lint && npm run unit"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,9 @@
     "url": "https://github.com/davidedantonio/flowrty-cli/issues"
   },
   "pre-commit": {
-    "run": ["lint"]
+    "run": [
+      "lint"
+    ]
   },
   "homepage": "https://github.com/davidedantonio/flowrty-cli#readme",
   "devDependencies": {
@@ -32,7 +35,9 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.4",
     "eslint-plugin-promise": "^6.0.0",
-    "pre-commit": "^1.2.2"
+    "js-yaml": "^4.1.0",
+    "pre-commit": "^1.2.2",
+    "tap": "^16.3.0"
   },
   "dependencies": {
     "chalk": "^4.1.2",
@@ -40,7 +45,6 @@
     "figlet": "^1.5.2",
     "handlebars": "^4.7.7",
     "inquirer": "^8.2.4",
-    "js-yaml": "^4.1.0",
     "make-promises-safe": "^5.1.0",
     "recursive-copy": "^2.0.14"
   }

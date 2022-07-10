@@ -11,5 +11,8 @@ module.exports = {
     ecmaVersion: 'latest'
   },
   rules: {
-  }
+  },
+  ignorePatterns: [
+    '/generators/flowrty-mfe/template/src/*.js'
+  ]
 }

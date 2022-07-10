@@ -1,5 +1,7 @@
 # flowrty-cli
 
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
+
 Flowrti CLI is an utility that help you to generate your Flowrty project. This mean that you can easily:
 
 - Generate a MFE App with webpack 5 Module Federation Plugin

@@ -27,6 +27,12 @@ async function cli () {
     },
     {
       type: 'input',
+      name: 'appTitle',
+      message: 'What is the application title?',
+      default: 'My Flowrty App'
+    },
+    {
+      type: 'input',
       name: 'author',
       message: 'What is the author of your project?',
       default: 'John Doe'
@@ -48,12 +54,6 @@ async function cli () {
       name: 'port',
       message: 'What is the port to expose?',
       default: '3000'
-    },
-    {
-      type: 'input',
-      name: 'appTitle',
-      message: 'What is the application title?',
-      default: 'My Flowrty App'
     }
   ]
 

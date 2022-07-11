@@ -16,6 +16,17 @@ if (env === undefined) {
   process.exit(1)
 }
 
+const remotes = {}
+for (const [key, value] of Object.entries(env)) {
+  if (key.startsWith('REMOTE_')) {
+    const objKey = value.split('@')[0]
+
+    Object.assign(remotes, {
+      [objKey]: value
+    })
+  }
+}
+
 module.exports = {
   entry: './src/index',
   mode: 'development',
@@ -58,7 +69,7 @@ module.exports = {
       name: dotenv.APP_NAME || '{{ mfeName }}',
       filename: 'remoteEntry.js',
       remotes: {
-        // Add Here your remotes
+        ...remotes
       },
       exposes: {
         // Add Here what you want to expose

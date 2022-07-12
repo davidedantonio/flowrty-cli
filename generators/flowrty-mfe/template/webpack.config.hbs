@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 
 const dotenv = require('dotenv')
@@ -39,7 +38,8 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   output: {
-    publicPath: 'auto'
+    publicPath: 'auto',
+    clean: true
   },
   module: {
     rules: [
@@ -64,7 +64,6 @@ module.exports = {
   },
   plugins: [
     new ESLintPlugin(),
-    new CleanWebpackPlugin(),
     new ModuleFederationPlugin({
       name: dotenv.APP_NAME || '{{ mfeName }}',
       filename: 'remoteEntry.js',

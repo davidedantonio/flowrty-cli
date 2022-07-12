@@ -37,7 +37,7 @@ async function generateProject (args) {
 
   await copy(path.join(__dirname, 'template'), projDir)
 
-  await fs.rename(path.join(projDir, '__env-template'), path.join(projDir, '.env-template'))
+  await fs.rename(path.join(projDir, '__env.example'), path.join(projDir, '.env.example'))
   await fs.rename(path.join(projDir, '__eslintrc.js'), path.join(projDir, '.eslintrc.js'))
   await fs.rename(path.join(projDir, '__gitignore'), path.join(projDir, '.gitignore'))
 

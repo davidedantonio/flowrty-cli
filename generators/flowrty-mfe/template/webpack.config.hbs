@@ -34,11 +34,12 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'dist')
     },
-    port: env.PORT || {{ port }}
+    port: env.PORT || {{ port }},
+    historyApiFallback: true
   },
   devtool: 'inline-source-map',
   output: {
-    publicPath: 'auto',
+    publicPath: '/',
     clean: true
   },
   module: {

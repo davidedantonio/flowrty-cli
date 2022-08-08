@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin
 const ESLintPlugin = require('eslint-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
+const CopyPlugin = require('copy-webpack-plugin')
 
 const dotenv = require('dotenv')
 const chalk = require('chalk')
@@ -98,6 +99,19 @@ module.exports = {
       templateParameters: {
         ...env
       }
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "**/*",
+          context: "public",
+          globOptions: {
+            dot: true,
+            gitignore: true,
+            ignore: ["**/index.*"],
+          },
+        },
+      ],
     })
   ]
 }

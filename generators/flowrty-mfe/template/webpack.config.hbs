@@ -28,90 +28,98 @@ for (const [key, value] of Object.entries(env)) {
   }
 }
 
-module.exports = {
-  entry: './src/index',
-  mode: 'development',
-  target: 'web',
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist')
+module.exports = (environment, argv) => {
+  const mode = argv.mode === 'production' ? 'production' : 'development'
+
+  return {
+    entry: './src/index',
+    mode,
+    target: 'web',
+    devServer: {
+      static: {
+        directory: 
+          argv.mode === 'production' ?
+            path.join(__dirname, 'dist') :
+            path.join(__dirname, 'public')
+      },
+      port: env.PORT || {{ port }},
+      historyApiFallback: true
     },
-    port: env.PORT || {{ port }},
-    historyApiFallback: true
-  },
-  devtool: 'inline-source-map',
-  output: {
-    publicPath: '/',
-    clean: true
-  },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        options: {
-          presets: ['@babel/preset-react']
-        }
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        include: path.resolve(__dirname, 'src'),
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
-      }
-    ]
-  },
-  plugins: [
-    new Dotenv({
-      ...env
-    }),
-    new ESLintPlugin(),
-    new ModuleFederationPlugin({
-      name: dotenv.APP_NAME || '{{ mfeName }}',
-      filename: 'remoteEntry.js',
-      remotes: {
-        ...remotes
-      },
-      exposes: {
-        // Add Here what you want to expose
-      },
-      shared: {
-        ...deps,
-        react: {
-          import: 'react',
-          shareKey: 'react',
-          shareScope: 'default',
-          singleton: true,
-          requiredVersion: deps['react']
-        },
-        'react-dom': {
-          singleton: true,
-          requiredVersion: deps['react-dom']
-        }
-      }
-    }),
-    new HtmlWebpackPlugin({
-      template: './public/index.ejs',
-      templateParameters: {
-        ...env
-      }
-    }),
-    new CopyPlugin({
-      patterns: [
+    devtool: 'inline-source-map',
+    output: {
+      path: path.join(__dirname, 'build'),
+      publicPath: '/',
+      clean: true,
+    },
+    module: {
+      rules: [
         {
-          from: "**/*",
-          context: "public",
-          globOptions: {
-            dot: true,
-            gitignore: true,
-            ignore: ["**/index.*"],
-          },
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/,
+          options: {
+            presets: ['@babel/preset-react']
+          }
         },
-      ],
-    })
-  ]
+        {
+          test: /\.s[ac]ss$/i,
+          include: path.resolve(__dirname, 'src'),
+          use: [
+            'style-loader',
+            'css-loader',
+            'sass-loader'
+          ]
+        }
+      ]
+    },
+    plugins: [
+      new Dotenv({
+        ...env
+      }),
+      new ESLintPlugin(),
+      new ModuleFederationPlugin({
+        name: dotenv.APP_NAME || '{{ mfeName }}',
+        filename: 'remoteEntry.js',
+        remotes: {
+          ...remotes
+        },
+        exposes: {
+          // Add Here what you want to expose
+        },
+        shared: {
+          ...deps,
+          react: {
+            import: 'react',
+            shareKey: 'react',
+            shareScope: 'default',
+            singleton: true,
+            requiredVersion: deps['react']
+          },
+          'react-dom': {
+            singleton: true,
+            requiredVersion: deps['react-dom']
+          }
+        }
+      }),
+      new HtmlWebpackPlugin({
+        template: './public/index.ejs',
+        templateParameters: {
+          ...env
+        }
+      }),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: "**/*",
+            context: "public",
+            globOptions: {
+              dot: true,
+              gitignore: true,
+              ignore: ["**/index.*"],
+            },
+          },
+        ],
+      })
+    ]
+  }
 }
